@@ -2,5 +2,8 @@
   "applicationId": "",
   "publicKey": "",
   "clientId": "",
-  "token": ""
+  "token": "",
+  "env": "dev",
+  "loginMessage": "i'm awake!",
+  "momId": "developer's discord user id"
 }
