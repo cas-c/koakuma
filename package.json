@@ -14,10 +14,15 @@
     "utf-8-validate": "^5.0.8",
     "zlib-sync": "^0.1.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "concurrently": "^7.0.0",
+    "nodemon": "^2.0.15"
+  },
   "scripts": {
-    "watch": "tsc -w",
     "lint": "eslint . --ext .ts",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
