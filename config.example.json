@@ -5,5 +5,6 @@
   "token": "",
   "env": "dev",
   "loginMessage": "i'm awake!",
-  "momId": "developer's discord user id"
+  "momId": "developer's discord user id",
+  "windyKey": ""
 }
