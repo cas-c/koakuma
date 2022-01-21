@@ -4,8 +4,8 @@ import fetch from "node-fetch";
 const config = require('../../config.json');
 
 interface WindyWebcam {
-    "id": "1634250804",
-    "status": "active",
+    "id": string,
+    "status": "active" | "inactive",
     "title": "Wellington",
     "image": {
         "current": {
@@ -46,16 +46,20 @@ let previousWebcamImage = '';
 let lastFetchedTimestamp = 0;
 const windyUrl = "https://api.windy.com/api/webcams/v2/list/webcam=1634250804/limit=1?show=webcams:image";
 const check = async (message: Message) => {
-    if (lastFetchedTimestamp !== 0 && lastFetchedTimestamp < Date.now() - 900000) {
+    if (lastFetchedTimestamp !== 0 && lastFetchedTimestamp > Date.now() - 900000) {
         message.reply(previousWebcamImage);
         return;
     }
     try {
         const windyResponse = await fetch(`${windyUrl}&key=${config.windyKey}`);
+        console.log('fetched again', lastFetchedTimestamp);
         lastFetchedTimestamp = Date.now();
         const body = await windyResponse.json();
         if (body.status === 'OK') {
             const ourWebcam: WindyWebcam = body.result.webcams[0];
+            if (ourWebcam.status !== 'active') {
+                message.reply("Webcam is inactive..!");
+            }
             const webcamImage = ourWebcam.image.current.preview;
             if (webcamImage !== previousWebcamImage) {
                 previousWebcamImage = webcamImage;

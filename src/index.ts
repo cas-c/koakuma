@@ -32,11 +32,10 @@ Koakuma
     .on('error', console.error)
     .on('messageCreate', async (message: Message) => {
         // prefix handling!
-        if (message.cleanContent.length > 2 && message.cleanContent.startsWith('小!')) {
+        if (message.cleanContent.length > 2 && message.cleanContent.startsWith('小t!')) {
             const textCommand = message.cleanContent.split(' ')[0].split('!');
             const assumedMainCommand = textCommand[1];
-            message.react('😄')
-            mom?.send(`${assumedMainCommand} from ${message.channel} in ${message.guild}`);
+            // mom?.send(`${assumedMainCommand} from ${message.channel} in ${message.guild}`);
             // i love switch dont tell anyone theyll call me cringe and unfunctionalpilled
             switch (assumedMainCommand) {
                 case 'check':
