@@ -52,6 +52,7 @@ const check = async (message: Message) => {
     }
     try {
         const windyResponse = await fetch(`${windyUrl}&key=${config.windyKey}`);
+        lastFetchedTimestamp = Date.now();
         const body = await windyResponse.json();
         if (body.status === 'OK') {
             const ourWebcam: WindyWebcam = body.result.webcams[0];
