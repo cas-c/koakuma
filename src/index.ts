@@ -32,7 +32,7 @@ Koakuma
     .on('error', console.error)
     .on('messageCreate', async (message: Message) => {
         // prefix handling!
-        if (message.cleanContent.length > 2 && message.cleanContent.startsWith('小t!')) {
+        if (message.cleanContent.length > 2 && message.cleanContent.startsWith('koa!')) {
             const textCommand = message.cleanContent.split(' ')[0].split('!');
             const assumedMainCommand = textCommand[1];
             // mom?.send(`${assumedMainCommand} from ${message.channel} in ${message.guild}`);
