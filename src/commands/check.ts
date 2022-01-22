@@ -44,7 +44,6 @@ interface WindyWebcam {
 
 let previousWebcamImage = '';
 let lastFetchedTimestamp = 0;
-const windyUrl = "https://api.windy.com/api/webcams/v2/list/webcam=1634250804/limit=1?show=webcams:image";
 
 async function blobToDataURL(blob: any) {
     return new Promise((resolve, reject) => {
@@ -76,7 +75,7 @@ const check = async (message: Message, cameraNumber?: string) => {
         return;
     }
     try {
-        const windyResponse = await fetch(`${windyUrl}&key=${config.windyKey}`);
+        const windyResponse = await fetch(`${config.windyUrl}&key=${config.windyKey}`);
         const previousTimestamp = lastFetchedTimestamp;
         lastFetchedTimestamp = Date.now();
         const body = await windyResponse.json();

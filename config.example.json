@@ -6,5 +6,6 @@
   "env": "dev",
   "loginMessage": "i'm awake!",
   "momId": "developer's discord user id",
-  "windyKey": ""
+  "windyKey": "",
+  "windyUrl": ""
 }
