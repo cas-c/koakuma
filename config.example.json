@@ -7,5 +7,6 @@
   "loginMessage": "i'm awake!",
   "momId": "developer's discord user id",
   "windyKey": "",
-  "windyUrl": ""
+  "windyUrl": "",
+  "prefix": "koa!"
 }

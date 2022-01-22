@@ -32,7 +32,7 @@ Koakuma
     .on('error', console.error)
     .on('messageCreate', async (message: Message) => {
         // prefix handling!
-        if (message.cleanContent.length > 2 && message.cleanContent.startsWith('test!')) {
+        if (message.cleanContent.length > 2 && message.cleanContent.startsWith(config.prefix)) {
             const splitBySpaces = message.cleanContent.split(' ');
             const textCommand = splitBySpaces[0].split('!');
             const assumedMainCommand = textCommand[1];
