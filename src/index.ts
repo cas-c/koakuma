@@ -32,14 +32,15 @@ Koakuma
     .on('error', console.error)
     .on('messageCreate', async (message: Message) => {
         // prefix handling!
-        if (message.cleanContent.length > 2 && message.cleanContent.startsWith('koa!')) {
-            const textCommand = message.cleanContent.split(' ')[0].split('!');
+        if (message.cleanContent.length > 2 && message.cleanContent.startsWith('test!')) {
+            const splitBySpaces = message.cleanContent.split(' ');
+            const textCommand = splitBySpaces[0].split('!');
             const assumedMainCommand = textCommand[1];
             // mom?.send(`${assumedMainCommand} from ${message.channel} in ${message.guild}`);
             // i love switch dont tell anyone theyll call me cringe and unfunctionalpilled
             switch (assumedMainCommand) {
                 case 'check':
-                    check(message)
+                    check(message, splitBySpaces.length > 0 ? splitBySpaces[1] : undefined)
                 default:
                     return;
             }

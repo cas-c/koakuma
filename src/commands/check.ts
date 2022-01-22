@@ -1,5 +1,5 @@
 // we're gonna check a webcam.
-import { Client, Message } from "discord.js";
+import { Client, Message, MessageAttachment } from "discord.js";
 import fetch from "node-fetch";
 const config = require('../../config.json');
 
@@ -45,14 +45,39 @@ interface WindyWebcam {
 let previousWebcamImage = '';
 let lastFetchedTimestamp = 0;
 const windyUrl = "https://api.windy.com/api/webcams/v2/list/webcam=1634250804/limit=1?show=webcams:image";
-const check = async (message: Message) => {
-    if (lastFetchedTimestamp !== 0 && lastFetchedTimestamp > Date.now() - 60000) {
-        message.reply(previousWebcamImage);
+
+async function blobToDataURL(blob: any) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(reader.error);
+        reader.onabort = () => reject(new Error("Read aborted"));
+        reader.readAsDataURL(blob);
+    });
+}
+
+// const getThumbnailFromCamera = async () => {
+//     const videoResponse = await fetch(`http://180.31.192.51:60001/mjpg/video.mjpg?t=${Date.now()}`)
+//     const thumbnailBlob = await videoResponse.blob();
+//     const thumbnail = await blobToDataURL(thumbnailBlob);
+//     console.log(thumbnail);
+//     return false;
+// }
+const check = async (message: Message, cameraNumber?: string) => {
+    // if (cameraNumber && cameraNumber === "1") {
+    //     const thumbnail = getThumbnailFromCamera();
+    //     console.log(thumbnail);
+    //     return;
+    // }
+    if (lastFetchedTimestamp !== 0 && lastFetchedTimestamp > Date.now() - 600000) {
+        // Use the helpful Attachment class structure to process the file for you
+        const earlyReturnAttachment = new MessageAttachment(previousWebcamImage);
+        message.reply({ files: [earlyReturnAttachment], content: `last capture time: <t:${Math.floor(lastFetchedTimestamp / 1000)}:R>` });
         return;
     }
     try {
         const windyResponse = await fetch(`${windyUrl}&key=${config.windyKey}`);
-        console.log('fetched again', lastFetchedTimestamp);
+        const previousTimestamp = lastFetchedTimestamp;
         lastFetchedTimestamp = Date.now();
         const body = await windyResponse.json();
         if (body.status === 'OK') {
@@ -64,7 +89,11 @@ const check = async (message: Message) => {
             if (webcamImage !== previousWebcamImage) {
                 previousWebcamImage = webcamImage;
             }
-            message.reply(webcamImage)
+            // Use the helpful Attachment class structure to process the file for you
+            const attachment = new MessageAttachment(webcamImage);
+
+            // interaction.reply({ files: [attachment] });
+            message.reply({ files: [attachment], content: `${previousTimestamp === 0 ? '' : `previous: <t:${Math.floor(previousTimestamp / 1000)}:R> `}current: <t:${Math.floor(lastFetchedTimestamp / 1000)}:R>` })
         }
     } catch (e) {
         console.error(e);
