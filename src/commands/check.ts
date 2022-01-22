@@ -46,7 +46,7 @@ let previousWebcamImage = '';
 let lastFetchedTimestamp = 0;
 const windyUrl = "https://api.windy.com/api/webcams/v2/list/webcam=1634250804/limit=1?show=webcams:image";
 const check = async (message: Message) => {
-    if (lastFetchedTimestamp !== 0 && lastFetchedTimestamp > Date.now() - 900000) {
+    if (lastFetchedTimestamp !== 0 && lastFetchedTimestamp > Date.now() - 60000) {
         message.reply(previousWebcamImage);
         return;
     }
@@ -60,7 +60,7 @@ const check = async (message: Message) => {
             if (ourWebcam.status !== 'active') {
                 message.reply("Webcam is inactive..!");
             }
-            const webcamImage = ourWebcam.image.current.preview;
+            const webcamImage = `${ourWebcam.image.current.preview}?t=${lastFetchedTimestamp}`;
             if (webcamImage !== previousWebcamImage) {
                 previousWebcamImage = webcamImage;
             }
