@@ -19,7 +19,9 @@ const cheerio_1 = require("cheerio");
 const config = require("../../config.json");
 let previousWebcamImage = "";
 let lastFetchedTimestamp = 0;
+let previousAttachment;
 const check = (message, cameraNumber) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     if (lastFetchedTimestamp !== 0 &&
         lastFetchedTimestamp > Date.now() - 600000) {
         // Use the helpful Attachment class structure to process the file for you
@@ -34,23 +36,26 @@ const check = (message, cameraNumber) => __awaiter(void 0, void 0, void 0, funct
         const fetchResponse = yield (0, node_fetch_1.default)(config.cameraSource);
         const galleryPage = yield fetchResponse.text();
         const $ = (0, cheerio_1.load)(galleryPage);
-        const mostRecentImage = $("a", ".gallery-wrapper").first()[0].attribs.href;
+        const mostRecentImage = (_b = (_a = $("a", ".gallery-wrapper").first()[0]) === null || _a === void 0 ? void 0 : _a.attribs) === null || _b === void 0 ? void 0 : _b.href;
+        const hasNewImage = mostRecentImage && mostRecentImage !== previousWebcamImage;
         if (mostRecentImage && mostRecentImage !== previousWebcamImage) {
             previousWebcamImage = `${config.imageSource}${mostRecentImage}`;
-        }
-        else {
-            previousWebcamImage = "error";
         }
         const previousTimestamp = lastFetchedTimestamp;
         lastFetchedTimestamp = Date.now();
         // Use the helpful Attachment class structure to process the file for you
-        const attachment = new discord_js_1.MessageAttachment(previousWebcamImage);
+        const attachment = hasNewImage
+            ? new discord_js_1.MessageAttachment(previousWebcamImage)
+            : previousAttachment;
+        previousAttachment = attachment;
         // interaction.reply({ files: [attachment] });
         message.reply({
-            files: [attachment],
+            files: attachment ? [attachment] : [],
             content: `${previousTimestamp === 0
                 ? ""
-                : `previous: <t:${Math.floor(previousTimestamp / 1000)}:R> `}current: <t:${Math.floor(lastFetchedTimestamp / 1000)}:R>`,
+                : `previous: <t:${Math.floor(previousTimestamp / 1000)}:R> `}${hasNewImage
+                ? `current: <t:${Math.floor(lastFetchedTimestamp / 1000)}:R>`
+                : "No images found!"}`,
         });
     }
     catch (e) {

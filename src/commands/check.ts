@@ -6,6 +6,7 @@ const config = require("../../config.json");
 
 let previousWebcamImage = "";
 let lastFetchedTimestamp = 0;
+let previousAttachment: MessageAttachment;
 
 const check = async (message: Message, cameraNumber?: string) => {
   if (
@@ -27,25 +28,33 @@ const check = async (message: Message, cameraNumber?: string) => {
     const galleryPage = await fetchResponse.text();
 
     const $ = load(galleryPage);
-    const mostRecentImage = $("a", ".gallery-wrapper").first()[0].attribs.href;
+    const mostRecentImage = $("a", ".gallery-wrapper").first()[0]?.attribs
+      ?.href;
+    const hasNewImage =
+      mostRecentImage && mostRecentImage !== previousWebcamImage;
     if (mostRecentImage && mostRecentImage !== previousWebcamImage) {
       previousWebcamImage = `${config.imageSource}${mostRecentImage}`;
-    } else {
-      previousWebcamImage = "error";
     }
     const previousTimestamp = lastFetchedTimestamp;
     lastFetchedTimestamp = Date.now();
     // Use the helpful Attachment class structure to process the file for you
-    const attachment = new MessageAttachment(previousWebcamImage);
+    const attachment = hasNewImage
+      ? new MessageAttachment(previousWebcamImage)
+      : previousAttachment;
+    previousAttachment = attachment;
 
     // interaction.reply({ files: [attachment] });
     message.reply({
-      files: [attachment],
+      files: attachment ? [attachment] : [],
       content: `${
         previousTimestamp === 0
           ? ""
           : `previous: <t:${Math.floor(previousTimestamp / 1000)}:R> `
-      }current: <t:${Math.floor(lastFetchedTimestamp / 1000)}:R>`,
+      }${
+        hasNewImage
+          ? `current: <t:${Math.floor(lastFetchedTimestamp / 1000)}:R>`
+          : "No images found!"
+      }`,
     });
   } catch (e) {
     console.error(e);
