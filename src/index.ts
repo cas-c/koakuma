@@ -36,7 +36,7 @@ Koakuma
             const splitBySpaces = message.cleanContent.split(' ');
             const textCommand = splitBySpaces[0].split('!');
             const assumedMainCommand = textCommand[1];
-            // mom?.send(`${assumedMainCommand} from ${message.channel} in ${message.guild}`);
+            // mom?.send(`${assumedMainnCommand} from ${message.channel} in ${message.guild}`);
             // i love switch dont tell anyone theyll call me cringe and unfunctionalpilled
             switch (assumedMainCommand) {
                 case 'check':

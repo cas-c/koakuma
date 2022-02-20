@@ -5,6 +5,8 @@
   "main": "src/index.ts",
   "dependencies": {
     "@discordjs/rest": "^0.2.0-canary.0",
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.1",
     "bufferutil": "^4.0.6",
     "discord-api-types": "^0.26.1",
     "discord.js": "^13.6.0",
@@ -16,8 +18,11 @@
     "zlib-sync": "^0.1.7"
   },
   "devDependencies": {
+    "cheerio": "^1.0.0-rc.10",
     "concurrently": "^7.0.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "prettier": "2.5.1",
+    "prettier-eslint": "^8.2.2"
   },
   "scripts": {
     "build": "tsc",

@@ -8,5 +8,7 @@
   "momId": "developer's discord user id",
   "windyKey": "",
   "windyUrl": "",
-  "prefix": "koa!"
+  "prefix": "koa!",
+  "cameraSource": "",
+  "imageSource": ""
 }
