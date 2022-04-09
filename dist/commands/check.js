@@ -24,7 +24,6 @@ const check = (message, cameraNumber) => __awaiter(void 0, void 0, void 0, funct
     var _a, _b;
     if (lastFetchedTimestamp !== 0 &&
         lastFetchedTimestamp > Date.now() - 600000) {
-        // Use the helpful Attachment class structure to process the file for you
         const earlyReturnAttachment = new discord_js_1.MessageAttachment(previousWebcamImage);
         message.reply({
             files: [earlyReturnAttachment],
@@ -43,7 +42,6 @@ const check = (message, cameraNumber) => __awaiter(void 0, void 0, void 0, funct
         }
         const previousTimestamp = lastFetchedTimestamp;
         lastFetchedTimestamp = Date.now();
-        // Use the helpful Attachment class structure to process the file for you
         const attachment = hasNewImage
             ? new discord_js_1.MessageAttachment(previousWebcamImage)
             : previousAttachment;

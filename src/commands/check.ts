@@ -13,7 +13,6 @@ const check = async (message: Message, cameraNumber?: string) => {
     lastFetchedTimestamp !== 0 &&
     lastFetchedTimestamp > Date.now() - 600000
   ) {
-    // Use the helpful Attachment class structure to process the file for you
     const earlyReturnAttachment = new MessageAttachment(previousWebcamImage);
     message.reply({
       files: [earlyReturnAttachment],
@@ -37,7 +36,6 @@ const check = async (message: Message, cameraNumber?: string) => {
     }
     const previousTimestamp = lastFetchedTimestamp;
     lastFetchedTimestamp = Date.now();
-    // Use the helpful Attachment class structure to process the file for you
     const attachment = hasNewImage
       ? new MessageAttachment(previousWebcamImage)
       : previousAttachment;
