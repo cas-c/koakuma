@@ -11,14 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const config = require("../../config.json");
 const onMessageReactionAdd = (messageReaction, user) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c;
-    if (messageReaction.message.channelId !== config.roleChannel ||
-        ((_a = messageReaction.message.author) === null || _a === void 0 ? void 0 : _a.id) === ((_b = messageReaction.client.user) === null || _b === void 0 ? void 0 : _b.id)) {
+    var _a;
+    if (messageReaction.message.channelId !== config.roleChannel || (user === null || user === void 0 ? void 0 : user.bot)) {
         return;
     }
     const roleJson = require(`${process.cwd()}/data/roles/${messageReaction.message.id}.json`);
     if (roleJson && (roleJson === null || roleJson === void 0 ? void 0 : roleJson.roleId) && user) {
-        const targetUser = yield ((_c = messageReaction.message.guild) === null || _c === void 0 ? void 0 : _c.members.fetch(user.id));
+        const targetUser = yield ((_a = messageReaction.message.guild) === null || _a === void 0 ? void 0 : _a.members.fetch(user.id));
         yield (targetUser === null || targetUser === void 0 ? void 0 : targetUser.roles.add(roleJson.roleId));
     }
     return;

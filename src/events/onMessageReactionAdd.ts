@@ -11,10 +11,7 @@ const onMessageReactionAdd = async (
   messageReaction: MessageReaction | PartialMessageReaction,
   user: User | PartialUser
 ) => {
-  if (
-    messageReaction.message.channelId !== config.roleChannel ||
-    messageReaction.message.author?.id === messageReaction.client.user?.id
-  ) {
+  if (messageReaction.message.channelId !== config.roleChannel || user?.bot) {
     return;
   }
   const roleJson = require(`${process.cwd()}/data/roles/${
