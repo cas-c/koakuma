@@ -34,7 +34,7 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
     var _a;
     console.log("ready!");
     (_a = client.user) === null || _a === void 0 ? void 0 : _a.setActivity({
-        type: "WATCHING",
+        type: 3 /* WATCHING */,
         name: `since ${new Date(Date.now()).toTimeString().split("(")[0]}`,
     });
     const getRoleMessagesIntoCache = () => { };
@@ -53,6 +53,8 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
 }))
     .on("error", console.error)
     .on("messageCreate", (message) => __awaiter(void 0, void 0, void 0, function* () {
+    if (message.author.bot)
+        return; // ignore bots ;_;
     // prefix handling!
     if (message.cleanContent.length > 2 &&
         message.cleanContent.toLowerCase().startsWith(config.prefix)) {

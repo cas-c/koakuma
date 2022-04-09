@@ -9,16 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const yoink = (message) => __awaiter(void 0, void 0, void 0, function* () {
+const yoink = (message, firstArgument) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
-    const emoteCodes = message.content.match(/<[:a]{1,2}([a-zA-Z]*):([0-9]*)>/);
-    const emoteName = (emoteCodes && emoteCodes[1]) || "";
-    const emoteCode = (emoteCodes && emoteCodes[2]) || "";
+    let emoteCodes = message.content.match(/[a]{0,1}:([a-zA-Z]*):([0-9]*)/);
+    let emoteName = emoteCodes && emoteCodes[1];
+    let emoteCode = emoteCodes && emoteCodes[2];
     if (!emoteName || !emoteCode) {
-        return message.reply("something went wrong, sorry~");
+        return message.reply("something went wrong, sorry?");
     }
     let response;
-    if (message.content.includes("<a:")) {
+    if (message.content.includes("<a:") || firstArgument.includes("a:")) {
         response = yield ((_a = message.guild) === null || _a === void 0 ? void 0 : _a.emojis.create(`https://cdn.discordapp.com/emojis/${emoteCode}.gif`, emoteName));
     }
     else {

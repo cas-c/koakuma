@@ -5,6 +5,7 @@ import {
   GuildTextBasedChannel,
   Message,
 } from "discord.js";
+import { ActivityTypes } from "discord.js/typings/enums";
 import commandHandler from "./commandHandler";
 import onMessageReactionAdd from "./events/onMessageReactionAdd";
 import onMessageReactionRemove from "./events/onMessageReactionRemove";
@@ -29,7 +30,7 @@ Koakuma.once("ready", async (client: Client) => {
   console.log("ready!");
 
   client.user?.setActivity({
-    type: "WATCHING",
+    type: ActivityTypes.WATCHING,
     name: `since ${new Date(Date.now()).toTimeString().split("(")[0]}`,
   });
   const getRoleMessagesIntoCache = () => {};
@@ -53,6 +54,7 @@ Koakuma.once("ready", async (client: Client) => {
 })
   .on("error", console.error)
   .on("messageCreate", async (message: Message) => {
+    if (message.author.bot) return; // ignore bots ;_;
     // prefix handling!
     if (
       message.cleanContent.length > 2 &&

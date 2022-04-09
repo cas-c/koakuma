@@ -32,10 +32,10 @@ const commandHandler = (message: Message) => {
       roles(message);
       return;
     case "emote":
-      emote(message);
+      emote(message, assumedFirstArgument);
       return;
     case "yoink":
-      yoink(message);
+      yoink(message, assumedFirstArgument);
       return;
     default:
       return;

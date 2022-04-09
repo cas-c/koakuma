@@ -35,10 +35,10 @@ const commandHandler = (message) => {
             (0, roles_1.default)(message);
             return;
         case "emote":
-            (0, emote_1.default)(message);
+            (0, emote_1.default)(message, assumedFirstArgument);
             return;
         case "yoink":
-            (0, yoink_1.default)(message);
+            (0, yoink_1.default)(message, assumedFirstArgument);
             return;
         default:
             return;
