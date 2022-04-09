@@ -5,11 +5,7 @@ import {
   GuildTextBasedChannel,
   Message,
 } from "discord.js";
-import addRole from "./commands/addRole";
-import check from "./commands/check";
-import ping from "./commands/ping";
-import roleInfo from "./commands/roleInfo";
-import roles from "./commands/roles";
+import commandHandler from "./commandHandler";
 import onMessageReactionAdd from "./events/onMessageReactionAdd";
 import onMessageReactionRemove from "./events/onMessageReactionRemove";
 
@@ -62,32 +58,7 @@ Koakuma.once("ready", async (client: Client) => {
       message.cleanContent.length > 2 &&
       message.cleanContent.toLowerCase().startsWith(config.prefix)
     ) {
-      const splitBySpaces = message.cleanContent.split(" ");
-      const textCommand = splitBySpaces[0].split("!");
-      const assumedMainCommand = textCommand[1].toLowerCase();
-      // mom?.send(`${assumedMainnCommand} from ${message.channel} in ${message.guild}`);
-      // i love switch dont tell anyone theyll call me cringe and unfunctionalpilled
-      switch (assumedMainCommand) {
-        case "check":
-          check(
-            message,
-            splitBySpaces.length > 0 ? splitBySpaces[1] : undefined
-          );
-          return;
-        case "ping":
-          ping(message);
-          return;
-        case "addrole":
-          addRole(message, splitBySpaces.slice(1).join(" "));
-          return;
-        case "roleinfo":
-          roleInfo(message, splitBySpaces[1]);
-          return;
-        case "roles":
-          roles(message);
-        default:
-          return;
-      }
+      commandHandler(message);
     }
   })
   .on("messageReactionAdd", onMessageReactionAdd)

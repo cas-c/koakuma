@@ -13,11 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
-const addRole_1 = __importDefault(require("./commands/addRole"));
-const check_1 = __importDefault(require("./commands/check"));
-const ping_1 = __importDefault(require("./commands/ping"));
-const roleInfo_1 = __importDefault(require("./commands/roleInfo"));
-const roles_1 = __importDefault(require("./commands/roles"));
+const commandHandler_1 = __importDefault(require("./commandHandler"));
 const onMessageReactionAdd_1 = __importDefault(require("./events/onMessageReactionAdd"));
 const onMessageReactionRemove_1 = __importDefault(require("./events/onMessageReactionRemove"));
 const config = require("../config.json");
@@ -60,29 +56,7 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
     // prefix handling!
     if (message.cleanContent.length > 2 &&
         message.cleanContent.toLowerCase().startsWith(config.prefix)) {
-        const splitBySpaces = message.cleanContent.split(" ");
-        const textCommand = splitBySpaces[0].split("!");
-        const assumedMainCommand = textCommand[1].toLowerCase();
-        // mom?.send(`${assumedMainnCommand} from ${message.channel} in ${message.guild}`);
-        // i love switch dont tell anyone theyll call me cringe and unfunctionalpilled
-        switch (assumedMainCommand) {
-            case "check":
-                (0, check_1.default)(message, splitBySpaces.length > 0 ? splitBySpaces[1] : undefined);
-                return;
-            case "ping":
-                (0, ping_1.default)(message);
-                return;
-            case "addrole":
-                (0, addRole_1.default)(message, splitBySpaces.slice(1).join(" "));
-                return;
-            case "roleinfo":
-                (0, roleInfo_1.default)(message, splitBySpaces[1]);
-                return;
-            case "roles":
-                (0, roles_1.default)(message);
-            default:
-                return;
-        }
+        (0, commandHandler_1.default)(message);
     }
 }))
     .on("messageReactionAdd", onMessageReactionAdd_1.default)

@@ -8,7 +8,7 @@ let previousWebcamImage = "";
 let lastFetchedTimestamp = 0;
 let previousAttachment: MessageAttachment;
 
-const check = async (message: Message, cameraNumber?: string) => {
+const check = async (message: Message) => {
   if (
     lastFetchedTimestamp !== 0 &&
     lastFetchedTimestamp > Date.now() - 600000

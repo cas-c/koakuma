@@ -20,7 +20,7 @@ const config = require("../../config.json");
 let previousWebcamImage = "";
 let lastFetchedTimestamp = 0;
 let previousAttachment;
-const check = (message, cameraNumber) => __awaiter(void 0, void 0, void 0, function* () {
+const check = (message) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     if (lastFetchedTimestamp !== 0 &&
         lastFetchedTimestamp > Date.now() - 600000) {
