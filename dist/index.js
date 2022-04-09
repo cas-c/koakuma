@@ -27,6 +27,7 @@ const Koakuma = new discord_js_1.Client({
         discord_js_1.Intents.FLAGS.DIRECT_MESSAGES,
         discord_js_1.Intents.FLAGS.GUILD_MESSAGES,
         discord_js_1.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        discord_js_1.Intents.FLAGS.GUILD_MEMBERS,
     ],
     partials: ["MESSAGE", "CHANNEL", "REACTION", "USER"],
 });
