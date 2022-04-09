@@ -30,10 +30,13 @@ const commandHandler = (message: Message) => {
       return;
     case "roles":
       roles(message);
+      return;
     case "emote":
       emote(message);
+      return;
     case "yoink":
       yoink(message);
+      return;
     default:
       return;
   }
