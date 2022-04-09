@@ -70,10 +70,13 @@ Koakuma.once("ready", async (client: Client) => {
             message,
             splitBySpaces.length > 0 ? splitBySpaces[1] : undefined
           );
+          return;
         case "ping":
           ping(message);
+          return;
         case "addrole":
           addRole(message, splitBySpaces.slice(1).join(" "));
+          return;
         default:
           return;
       }

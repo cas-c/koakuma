@@ -65,10 +65,13 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
         switch (assumedMainCommand) {
             case "check":
                 (0, check_1.default)(message, splitBySpaces.length > 0 ? splitBySpaces[1] : undefined);
+                return;
             case "ping":
                 (0, ping_1.default)(message);
+                return;
             case "addrole":
                 (0, addRole_1.default)(message, splitBySpaces.slice(1).join(" "));
+                return;
             default:
                 return;
         }
