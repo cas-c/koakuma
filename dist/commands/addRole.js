@@ -23,6 +23,7 @@ const addRole = (message, roleName) => __awaiter(void 0, void 0, void 0, functio
     if (created) {
         const roleChannel = (yield ((_c = (_b = message.guild) === null || _b === void 0 ? void 0 : _b.channels.cache.get(config.roleChannel)) === null || _c === void 0 ? void 0 : _c.fetch()));
         const roleMessage = yield (roleChannel === null || roleChannel === void 0 ? void 0 : roleChannel.send(`New mentionable role: <@&${created.id}>.  React to this message to get this role added to you automatically!`));
+        yield roleMessage.react("🦇");
         const roleObjectPath = `${process.cwd()}/data/roles/${roleMessage.id}.json`;
         const exists = fs_1.default.existsSync(roleObjectPath);
         const roleObject = {

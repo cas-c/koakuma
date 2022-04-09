@@ -8,6 +8,8 @@ import {
 import addRole from "./commands/addRole";
 import check from "./commands/check";
 import ping from "./commands/ping";
+import roleInfo from "./commands/roleInfo";
+import roles from "./commands/roles";
 import onMessageReactionAdd from "./events/onMessageReactionAdd";
 import onMessageReactionRemove from "./events/onMessageReactionRemove";
 
@@ -77,6 +79,11 @@ Koakuma.once("ready", async (client: Client) => {
         case "addrole":
           addRole(message, splitBySpaces.slice(1).join(" "));
           return;
+        case "roleinfo":
+          roleInfo(message, splitBySpaces[1]);
+          return;
+        case "roles":
+          roles(message);
         default:
           return;
       }

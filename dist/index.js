@@ -16,6 +16,8 @@ const discord_js_1 = require("discord.js");
 const addRole_1 = __importDefault(require("./commands/addRole"));
 const check_1 = __importDefault(require("./commands/check"));
 const ping_1 = __importDefault(require("./commands/ping"));
+const roleInfo_1 = __importDefault(require("./commands/roleInfo"));
+const roles_1 = __importDefault(require("./commands/roles"));
 const onMessageReactionAdd_1 = __importDefault(require("./events/onMessageReactionAdd"));
 const onMessageReactionRemove_1 = __importDefault(require("./events/onMessageReactionRemove"));
 const config = require("../config.json");
@@ -72,6 +74,11 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
             case "addrole":
                 (0, addRole_1.default)(message, splitBySpaces.slice(1).join(" "));
                 return;
+            case "roleinfo":
+                (0, roleInfo_1.default)(message, splitBySpaces[1]);
+                return;
+            case "roles":
+                (0, roles_1.default)(message);
             default:
                 return;
         }

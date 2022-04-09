@@ -15,6 +15,7 @@ const addRole = async (message: Message, roleName: string) => {
     const roleMessage = await roleChannel?.send(
       `New mentionable role: <@&${created.id}>.  React to this message to get this role added to you automatically!`
     );
+    await roleMessage.react("🦇");
     const roleObjectPath = `${process.cwd()}/data/roles/${roleMessage.id}.json`;
     const exists = fs.existsSync(roleObjectPath);
     const roleObject = {
