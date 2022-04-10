@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const yoink = (message, firstArgument) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
-    let emoteCodes = message.content.match(/[a]{0,1}:([a-zA-Z]*):([0-9]*)/);
+    let emoteCodes = message.content.match(/[a]{0,1}:([a-z_\-A-Z]*):([0-9]*)/);
     let emoteName = emoteCodes && emoteCodes[1];
     let emoteCode = emoteCodes && emoteCodes[2];
     if (!emoteName || !emoteCode) {
