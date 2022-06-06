@@ -14,8 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const commandHandler_1 = __importDefault(require("./commandHandler"));
+const redis_1 = __importDefault(require("./services/redis"));
 const onMessageReactionAdd_1 = __importDefault(require("./events/onMessageReactionAdd"));
 const onMessageReactionRemove_1 = __importDefault(require("./events/onMessageReactionRemove"));
+const onVoiceStateUpdate_1 = __importDefault(require("./events/onVoiceStateUpdate"));
 const config = require("../config.json");
 const Koakuma = new discord_js_1.Client({
     intents: [
@@ -24,6 +26,7 @@ const Koakuma = new discord_js_1.Client({
         discord_js_1.Intents.FLAGS.GUILD_MESSAGES,
         discord_js_1.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
         discord_js_1.Intents.FLAGS.GUILD_MEMBERS,
+        discord_js_1.Intents.FLAGS.GUILD_VOICE_STATES,
     ],
     partials: ["MESSAGE", "CHANNEL", "REACTION", "USER"],
 });
@@ -33,6 +36,7 @@ let roleChannel;
 Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     console.log("ready!");
+    redis_1.default.connect();
     (_a = client.user) === null || _a === void 0 ? void 0 : _a.setActivity({
         type: 3 /* WATCHING */,
         name: `since ${new Date(Date.now()).toTimeString().split("(")[0]}`,
@@ -62,6 +66,7 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
     }
 }))
     .on("messageReactionAdd", onMessageReactionAdd_1.default)
-    .on("messageReactionRemove", onMessageReactionRemove_1.default);
+    .on("messageReactionRemove", onMessageReactionRemove_1.default)
+    .on("voiceStateUpdate", onVoiceStateUpdate_1.default);
 Koakuma.login(config.token);
 //# sourceMappingURL=index.js.map

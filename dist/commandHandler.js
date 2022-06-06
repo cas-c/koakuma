@@ -10,6 +10,8 @@ const ping_1 = __importDefault(require("./commands/ping"));
 const roleInfo_1 = __importDefault(require("./commands/roleInfo"));
 const roles_1 = __importDefault(require("./commands/roles"));
 const yoink_1 = __importDefault(require("./commands/yoink"));
+const who_1 = __importDefault(require("./commands/who"));
+const test_1 = __importDefault(require("./commands/test"));
 const commandHandler = (message) => {
     const splitBySpaces = message.cleanContent.split(" ");
     const textCommand = splitBySpaces[0].split("!");
@@ -39,6 +41,12 @@ const commandHandler = (message) => {
             return;
         case "yoink":
             (0, yoink_1.default)(message, assumedFirstArgument);
+            return;
+        case "who":
+            (0, who_1.default)(message, assumedFirstArgument);
+            return;
+        case "test":
+            (0, test_1.default)(message);
             return;
         default:
             return;
