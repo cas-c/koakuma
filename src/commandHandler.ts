@@ -6,6 +6,8 @@ import ping from "./commands/ping";
 import roleInfo from "./commands/roleInfo";
 import roles from "./commands/roles";
 import yoink from "./commands/yoink";
+import who from "./commands/who";
+import test from "./commands/test";
 
 const commandHandler = (message: Message) => {
   const splitBySpaces = message.cleanContent.split(" ");
@@ -36,6 +38,12 @@ const commandHandler = (message: Message) => {
       return;
     case "yoink":
       yoink(message, assumedFirstArgument);
+      return;
+    case "who":
+      who(message, assumedFirstArgument);
+      return;
+    case "test":
+      test(message);
       return;
     default:
       return;

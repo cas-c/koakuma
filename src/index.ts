@@ -6,9 +6,14 @@ import {
   Message,
 } from "discord.js";
 import { ActivityTypes } from "discord.js/typings/enums";
+
 import commandHandler from "./commandHandler";
+
+import redis from "./services/redis";
+
 import onMessageReactionAdd from "./events/onMessageReactionAdd";
 import onMessageReactionRemove from "./events/onMessageReactionRemove";
+import onVoiceStateUpdate from "./events/onVoiceStateUpdate";
 
 const config = require("../config.json");
 
@@ -19,6 +24,7 @@ const Koakuma = new Client({
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
     Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_VOICE_STATES,
   ],
   partials: ["MESSAGE", "CHANNEL", "REACTION", "USER"],
 });
@@ -28,6 +34,7 @@ let homeChannel: GuildTextBasedChannel | null;
 let roleChannel: GuildTextBasedChannel | null;
 Koakuma.once("ready", async (client: Client) => {
   console.log("ready!");
+  redis.connect();
 
   client.user?.setActivity({
     type: ActivityTypes.WATCHING,
@@ -64,6 +71,7 @@ Koakuma.once("ready", async (client: Client) => {
     }
   })
   .on("messageReactionAdd", onMessageReactionAdd)
-  .on("messageReactionRemove", onMessageReactionRemove);
+  .on("messageReactionRemove", onMessageReactionRemove)
+  .on("voiceStateUpdate", onVoiceStateUpdate);
 
 Koakuma.login(config.token);
