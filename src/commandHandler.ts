@@ -8,8 +8,9 @@ import roles from "./commands/roles";
 import yoink from "./commands/yoink";
 import who from "./commands/who";
 import test from "./commands/test";
+import point from "./commands/point";
 
-const commandHandler = (message: Message) => {
+const commandHandler = async (message: Message) => {
   const splitBySpaces = message.cleanContent.split(" ");
   const textCommand = splitBySpaces[0].split("!");
   const assumedMainCommand = textCommand[1].toLowerCase();
@@ -45,6 +46,26 @@ const commandHandler = (message: Message) => {
     case "test":
       test(message);
       return;
+    case "point":
+      if (message.mentions.repliedUser) {
+        return point(message, message.mentions.repliedUser.id);
+      } else if (message.mentions.members?.size) {
+        return message.mentions.members?.forEach((member) =>
+          point(message, member.id)
+        );
+      } else if (assumedFirstArgument === "random") {
+        const members = await message.guild?.members.fetch();
+        const memberArray = Object.values(members?.toJSON() || {}) || [];
+        const count = memberArray.length;
+        const target =
+          memberArray.length > 0
+            ? memberArray[Math.floor(Math.random() * count)]
+            : message.author;
+        point(message, target.id);
+      } else {
+        point(message, message.author.id);
+      }
+
     default:
       return;
   }
