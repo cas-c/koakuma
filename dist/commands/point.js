@@ -13,24 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const node_fetch_1 = __importDefault(require("node-fetch"));
-const redis_1 = __importDefault(require("../services/redis"));
 const pointAt_1 = __importDefault(require("../utils/pointAt"));
-const who = (message, direction) => __awaiter(void 0, void 0, void 0, function* () {
+const point = (message, targetId) => __awaiter(void 0, void 0, void 0, function* () {
     if (!message.guild || !message.member)
         return;
-    const currentMemberVoice = message.member.voice.channelId;
-    let memberId;
-    switch (direction) {
-        case "left":
-            // find who left from redis;
-            memberId = yield redis_1.default.get(`left:${currentMemberVoice}`);
-            break;
-        case "joined":
-        default:
-            // find who last joined from redis;
-            memberId = yield redis_1.default.get(`joined:${currentMemberVoice}`);
-            break;
-    }
+    let memberId = targetId;
     let target;
     if (!memberId) {
         target = message.author;
@@ -38,8 +25,8 @@ const who = (message, direction) => __awaiter(void 0, void 0, void 0, function* 
     else {
         target = yield message.client.users.fetch(memberId);
     }
-    const authorImage = yield (yield (0, node_fetch_1.default)(`${target.displayAvatarURL()}?size=100`)).buffer();
-    yield (0, pointAt_1.default)(authorImage, message.channel);
+    const targetImage = yield (yield (0, node_fetch_1.default)(`${target.displayAvatarURL()}?size=100`)).buffer();
+    yield (0, pointAt_1.default)(targetImage, message.channel);
 });
-exports.default = who;
-//# sourceMappingURL=who.js.map
+exports.default = point;
+//# sourceMappingURL=point.js.map
