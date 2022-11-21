@@ -2,6 +2,7 @@
 import { Message, MessageAttachment } from "discord.js";
 import fetch from "node-fetch";
 import { load } from "cheerio";
+import getWebcamImage from "../utils/getWebcamImage"
 const config = require("../../config.json");
 
 let previousWebcamImage = "";
@@ -23,25 +24,11 @@ const check = async (message: Message) => {
     return;
   }
   try {
-    const fetchResponse = await fetch(config.cameraSource);
-    const galleryPage = await fetchResponse.text();
 
-    const $ = load(galleryPage);
-    const mostRecentImage = $("a", ".gallery-wrapper").first()[0]?.attribs
-      ?.href;
-    const hasNewImage =
-      mostRecentImage && mostRecentImage !== previousWebcamImage;
-    if (mostRecentImage && mostRecentImage !== previousWebcamImage) {
-      previousWebcamImage = `${config.imageSource}${mostRecentImage}`;
-    }
+    const { attachment, hasNewImage } = await getWebcamImage();
     const previousTimestamp = lastFetchedTimestamp;
+    previousAttachment = attachment || previousAttachment;
     lastFetchedTimestamp = Date.now();
-    const attachment = hasNewImage
-      ? new MessageAttachment(previousWebcamImage)
-      : previousAttachment;
-    previousAttachment = attachment;
-
-    // interaction.reply({ files: [attachment] });
     message.reply({
       files: attachment ? [attachment] : [],
       content: `${

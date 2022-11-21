@@ -14,14 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // we're gonna check a webcam.
 const discord_js_1 = require("discord.js");
-const node_fetch_1 = __importDefault(require("node-fetch"));
-const cheerio_1 = require("cheerio");
+const getWebcamImage_1 = __importDefault(require("../utils/getWebcamImage"));
 const config = require("../../config.json");
 let previousWebcamImage = "";
 let lastFetchedTimestamp = 0;
 let previousAttachment;
 const check = (message) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b;
     if (lastFetchedTimestamp !== 0 &&
         lastFetchedTimestamp > Date.now() - 600000) {
         const earlyReturnAttachment = new discord_js_1.MessageAttachment(previousWebcamImage);
@@ -32,21 +30,10 @@ const check = (message) => __awaiter(void 0, void 0, void 0, function* () {
         return;
     }
     try {
-        const fetchResponse = yield (0, node_fetch_1.default)(config.cameraSource);
-        const galleryPage = yield fetchResponse.text();
-        const $ = (0, cheerio_1.load)(galleryPage);
-        const mostRecentImage = (_b = (_a = $("a", ".gallery-wrapper").first()[0]) === null || _a === void 0 ? void 0 : _a.attribs) === null || _b === void 0 ? void 0 : _b.href;
-        const hasNewImage = mostRecentImage && mostRecentImage !== previousWebcamImage;
-        if (mostRecentImage && mostRecentImage !== previousWebcamImage) {
-            previousWebcamImage = `${config.imageSource}${mostRecentImage}`;
-        }
+        const { attachment, hasNewImage } = yield (0, getWebcamImage_1.default)();
         const previousTimestamp = lastFetchedTimestamp;
+        previousAttachment = attachment || previousAttachment;
         lastFetchedTimestamp = Date.now();
-        const attachment = hasNewImage
-            ? new discord_js_1.MessageAttachment(previousWebcamImage)
-            : previousAttachment;
-        previousAttachment = attachment;
-        // interaction.reply({ files: [attachment] });
         message.reply({
             files: attachment ? [attachment] : [],
             content: `${previousTimestamp === 0

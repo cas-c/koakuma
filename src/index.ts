@@ -4,6 +4,7 @@ import {
   User,
   GuildTextBasedChannel,
   Message,
+  MessageAttachment,
 } from "discord.js";
 import { ActivityTypes } from "discord.js/typings/enums";
 
@@ -32,6 +33,7 @@ const Koakuma = new Client({
 let mom: User | null;
 let homeChannel: GuildTextBasedChannel | null;
 let roleChannel: GuildTextBasedChannel | null;
+const SEPTAPUS = "127296623779774464";
 Koakuma.once("ready", async (client: Client) => {
   console.log("ready!");
   redis.connect();
@@ -61,6 +63,16 @@ Koakuma.once("ready", async (client: Client) => {
 })
   .on("error", console.error)
   .on("messageCreate", async (message: Message) => {
+    if (message.author.bot && message.author.id === SEPTAPUS) {
+      if (message.cleanContent.includes("https://i.imgur")) {
+        message.reply({
+          attachments: [
+            new MessageAttachment(message.cleanContent.split(": ")[1]),
+          ],
+        }); //;
+      }
+    }
+
     if (message.author.bot) return; // ignore bots ;_;
     // prefix handling!
     if (

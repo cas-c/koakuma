@@ -33,6 +33,7 @@ const Koakuma = new discord_js_1.Client({
 let mom;
 let homeChannel;
 let roleChannel;
+const SEPTAPUS = "127296623779774464";
 Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     console.log("ready!");
@@ -57,6 +58,15 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
 }))
     .on("error", console.error)
     .on("messageCreate", (message) => __awaiter(void 0, void 0, void 0, function* () {
+    if (message.author.bot && message.author.id === SEPTAPUS) {
+        if (message.cleanContent.includes("https://i.imgur")) {
+            message.reply({
+                attachments: [
+                    new discord_js_1.MessageAttachment(message.cleanContent.split(": ")[1]),
+                ],
+            }); //;
+        }
+    }
     if (message.author.bot)
         return; // ignore bots ;_;
     // prefix handling!
