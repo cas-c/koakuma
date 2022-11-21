@@ -18,6 +18,7 @@ const redis_1 = __importDefault(require("./services/redis"));
 const onMessageReactionAdd_1 = __importDefault(require("./events/onMessageReactionAdd"));
 const onMessageReactionRemove_1 = __importDefault(require("./events/onMessageReactionRemove"));
 const onVoiceStateUpdate_1 = __importDefault(require("./events/onVoiceStateUpdate"));
+const onInteractionCreate_1 = __importDefault(require("./events/onInteractionCreate"));
 const config = require("../config.json");
 const Koakuma = new discord_js_1.Client({
     intents: [
@@ -77,6 +78,7 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
 }))
     .on("messageReactionAdd", onMessageReactionAdd_1.default)
     .on("messageReactionRemove", onMessageReactionRemove_1.default)
-    .on("voiceStateUpdate", onVoiceStateUpdate_1.default);
+    .on("voiceStateUpdate", onVoiceStateUpdate_1.default)
+    .on("interactionCreate", onInteractionCreate_1.default);
 Koakuma.login(config.token);
 //# sourceMappingURL=index.js.map

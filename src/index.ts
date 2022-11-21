@@ -15,6 +15,7 @@ import redis from "./services/redis";
 import onMessageReactionAdd from "./events/onMessageReactionAdd";
 import onMessageReactionRemove from "./events/onMessageReactionRemove";
 import onVoiceStateUpdate from "./events/onVoiceStateUpdate";
+import onInteractionCreate from "./events/onInteractionCreate";
 
 const config = require("../config.json");
 
@@ -84,6 +85,6 @@ Koakuma.once("ready", async (client: Client) => {
   })
   .on("messageReactionAdd", onMessageReactionAdd)
   .on("messageReactionRemove", onMessageReactionRemove)
-  .on("voiceStateUpdate", onVoiceStateUpdate);
-
+  .on("voiceStateUpdate", onVoiceStateUpdate)
+  .on("interactionCreate", onInteractionCreate)
 Koakuma.login(config.token);
