@@ -27,6 +27,7 @@ const Koakuma = new discord_js_1.Client({
         discord_js_1.GatewayIntentBits.GuildMessages,
         discord_js_1.GatewayIntentBits.GuildMessageReactions,
         discord_js_1.GatewayIntentBits.GuildMembers,
+        discord_js_1.GatewayIntentBits.MessageContent,
         discord_js_1.GatewayIntentBits.GuildVoiceStates,
     ],
     partials: [discord_js_1.Partials.Message, discord_js_1.Partials.Channel, discord_js_1.Partials.Reaction, discord_js_1.Partials.User],

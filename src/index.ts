@@ -24,6 +24,7 @@ const Koakuma = new Client({
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildVoiceStates,
   ],
   partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User],
@@ -84,4 +85,5 @@ Koakuma.once("ready", async (client: Client) => {
   .on("messageReactionRemove", onMessageReactionRemove)
   .on("voiceStateUpdate", onVoiceStateUpdate)
   .on("interactionCreate", onInteractionCreate)
+
 Koakuma.login(config.token);
