@@ -1,6 +1,7 @@
 
 import { load } from "cheerio";
 import { AttachmentBuilder } from "discord.js"
+import fetch from "node-fetch";
 const config = require('../../config.json')
 const getWebcamImage = async () => {
     let previousWebcamImage
