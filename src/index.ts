@@ -1,12 +1,10 @@
 import {
   Client,
-  Intents,
   User,
   GuildTextBasedChannel,
   Message,
-  MessageAttachment,
+  GatewayIntentBits, Partials, ActivityType, AttachmentBuilder 
 } from "discord.js";
-import { ActivityTypes } from "discord.js/typings/enums";
 
 import commandHandler from "./commandHandler";
 
@@ -21,14 +19,14 @@ const config = require("../config.json");
 
 const Koakuma = new Client({
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-    Intents.FLAGS.GUILD_MEMBERS,
-    Intents.FLAGS.GUILD_VOICE_STATES,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.GuildVoiceStates,
   ],
-  partials: ["MESSAGE", "CHANNEL", "REACTION", "USER"],
+  partials: [Partials.Message, Partials.Channel, Partials.Reaction, Partials.User],
 });
 
 let mom: User | null;
@@ -40,8 +38,8 @@ Koakuma.once("ready", async (client: Client) => {
   redis.connect();
 
   client.user?.setActivity({
-    type: ActivityTypes.WATCHING,
-    name: `since ${new Date(Date.now()).toTimeString().split("(")[0]}`,
+    type: ActivityType.Watching,
+    name: `the library`,
   });
   const getRoleMessagesIntoCache = () => {};
 
@@ -66,11 +64,10 @@ Koakuma.once("ready", async (client: Client) => {
   .on("messageCreate", async (message: Message) => {
     if (message.author.bot && message.author.id === SEPTAPUS) {
       if (message.cleanContent.includes("https://i.imgur")) {
+        const attachment = new AttachmentBuilder(message.cleanContent.split(": ")[1], { name: 'septasus.png' });
         message.reply({
-          attachments: [
-            new MessageAttachment(message.cleanContent.split(": ")[1]),
-          ],
-        }); //;
+          files: [attachment]
+        });
       }
     }
 

@@ -1,5 +1,5 @@
-const config = require("../config.json");
-const { REST, Routes } = require('discord.js');
+const config = require("../../config.json");
+import { REST, Routes } from "discord.js"
 
 const commands = [
 	{

@@ -1,4 +1,4 @@
-import { Message, MessageAttachment } from "discord.js";
+import { Message } from "discord.js";
 
 const emote = (message: Message, firstArgument: string) => {
   let emoteCodes = message.content.match(/[a]{0,1}:([a-z_\-A-Z]*):([0-9]*)/);

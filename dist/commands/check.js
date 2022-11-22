@@ -22,7 +22,7 @@ let previousAttachment;
 const check = (message) => __awaiter(void 0, void 0, void 0, function* () {
     if (lastFetchedTimestamp !== 0 &&
         lastFetchedTimestamp > Date.now() - 600000) {
-        const earlyReturnAttachment = new discord_js_1.MessageAttachment(previousWebcamImage);
+        const earlyReturnAttachment = new discord_js_1.AttachmentBuilder(previousWebcamImage);
         message.reply({
             files: [earlyReturnAttachment],
             content: `last capture time: <t:${Math.floor(lastFetchedTimestamp / 1000)}:R>`,

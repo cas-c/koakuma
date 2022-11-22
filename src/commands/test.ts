@@ -1,6 +1,4 @@
-import { Message, MessageAttachment } from "discord.js";
-import fetch from "node-fetch";
-import sharp from "sharp";
+import { Message } from "discord.js";
 
 const test = async (message: Message) => {
   console.log("test!");

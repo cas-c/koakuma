@@ -1,6 +1,5 @@
-import { Guild, Message, MessageAttachment } from "discord.js";
+import {  Message } from "discord.js";
 import fetch from "node-fetch";
-import sharp from "sharp";
 import redis from "../services/redis";
 import pointAt from "../utils/pointAt";
 

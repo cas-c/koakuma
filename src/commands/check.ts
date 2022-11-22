@@ -1,20 +1,18 @@
 // we're gonna check a webcam.
-import { Message, MessageAttachment } from "discord.js";
-import fetch from "node-fetch";
-import { load } from "cheerio";
+import { Message, AttachmentBuilder } from "discord.js";
 import getWebcamImage from "../utils/getWebcamImage"
 const config = require("../../config.json");
 
 let previousWebcamImage = "";
 let lastFetchedTimestamp = 0;
-let previousAttachment: MessageAttachment;
+let previousAttachment: AttachmentBuilder;
 
 const check = async (message: Message) => {
   if (
     lastFetchedTimestamp !== 0 &&
     lastFetchedTimestamp > Date.now() - 600000
   ) {
-    const earlyReturnAttachment = new MessageAttachment(previousWebcamImage);
+    const earlyReturnAttachment = new AttachmentBuilder(previousWebcamImage);
     message.reply({
       files: [earlyReturnAttachment],
       content: `last capture time: <t:${Math.floor(

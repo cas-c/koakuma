@@ -22,14 +22,14 @@ const onInteractionCreate_1 = __importDefault(require("./events/onInteractionCre
 const config = require("../config.json");
 const Koakuma = new discord_js_1.Client({
     intents: [
-        discord_js_1.Intents.FLAGS.GUILDS,
-        discord_js_1.Intents.FLAGS.DIRECT_MESSAGES,
-        discord_js_1.Intents.FLAGS.GUILD_MESSAGES,
-        discord_js_1.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
-        discord_js_1.Intents.FLAGS.GUILD_MEMBERS,
-        discord_js_1.Intents.FLAGS.GUILD_VOICE_STATES,
+        discord_js_1.GatewayIntentBits.Guilds,
+        discord_js_1.GatewayIntentBits.DirectMessages,
+        discord_js_1.GatewayIntentBits.GuildMessages,
+        discord_js_1.GatewayIntentBits.GuildMessageReactions,
+        discord_js_1.GatewayIntentBits.GuildMembers,
+        discord_js_1.GatewayIntentBits.GuildVoiceStates,
     ],
-    partials: ["MESSAGE", "CHANNEL", "REACTION", "USER"],
+    partials: [discord_js_1.Partials.Message, discord_js_1.Partials.Channel, discord_js_1.Partials.Reaction, discord_js_1.Partials.User],
 });
 let mom;
 let homeChannel;
@@ -40,8 +40,8 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
     console.log("ready!");
     redis_1.default.connect();
     (_a = client.user) === null || _a === void 0 ? void 0 : _a.setActivity({
-        type: 3 /* WATCHING */,
-        name: `since ${new Date(Date.now()).toTimeString().split("(")[0]}`,
+        type: discord_js_1.ActivityType.Watching,
+        name: `the library`,
     });
     const getRoleMessagesIntoCache = () => { };
     // todo: I might just make these the same thing and switch which gets assigned as 'homeChannel' based on config.
@@ -61,11 +61,10 @@ Koakuma.once("ready", (client) => __awaiter(void 0, void 0, void 0, function* ()
     .on("messageCreate", (message) => __awaiter(void 0, void 0, void 0, function* () {
     if (message.author.bot && message.author.id === SEPTAPUS) {
         if (message.cleanContent.includes("https://i.imgur")) {
+            const attachment = new discord_js_1.AttachmentBuilder(message.cleanContent.split(": ")[1], { name: 'septasus.png' });
             message.reply({
-                attachments: [
-                    new discord_js_1.MessageAttachment(message.cleanContent.split(": ")[1]),
-                ],
-            }); //;
+                files: [attachment]
+            });
         }
     }
     if (message.author.bot)

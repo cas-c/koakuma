@@ -1,7 +1,7 @@
 
 import { load } from "cheerio";
-import { MessageAttachment } from "discord.js"
-
+import { AttachmentBuilder } from "discord.js"
+const config = require('../../config.json')
 const getWebcamImage = async () => {
     let previousWebcamImage
     const fetchResponse = await fetch(config.cameraSource);
@@ -16,7 +16,7 @@ const getWebcamImage = async () => {
       previousWebcamImage = `${config.imageSource}${mostRecentImage}`;
     }
 
-    const attachment = previousWebcamImage && new MessageAttachment(previousWebcamImage)
+    const attachment = previousWebcamImage && new AttachmentBuilder(previousWebcamImage, { name: 'image' })
     return {
         attachment,
         mostRecentImage, 

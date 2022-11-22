@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const cheerio_1 = require("cheerio");
 const discord_js_1 = require("discord.js");
+const config = require('../../config.json');
 const getWebcamImage = () => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     let previousWebcamImage;
@@ -22,7 +23,7 @@ const getWebcamImage = () => __awaiter(void 0, void 0, void 0, function* () {
     if (mostRecentImage && mostRecentImage !== previousWebcamImage) {
         previousWebcamImage = `${config.imageSource}${mostRecentImage}`;
     }
-    const attachment = previousWebcamImage && new discord_js_1.MessageAttachment(previousWebcamImage);
+    const attachment = previousWebcamImage && new discord_js_1.AttachmentBuilder(previousWebcamImage, { name: 'image' });
     return {
         attachment,
         mostRecentImage,

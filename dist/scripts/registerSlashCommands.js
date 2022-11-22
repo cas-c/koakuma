@@ -8,19 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const config = require("../config.json");
-const { REST, Routes } = require('discord.js');
+Object.defineProperty(exports, "__esModule", { value: true });
+const config = require("../../config.json");
+const discord_js_1 = require("discord.js");
 const commands = [
     {
         name: 'check',
         description: 'Checks the camera for the most recent image.',
     },
 ];
-const rest = new REST({ version: '10' }).setToken(config.token);
+const rest = new discord_js_1.REST({ version: '10' }).setToken(config.token);
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
         console.log('Started refreshing application (/) commands.');
-        yield rest.put(Routes.applicationCommands(config.clientId), { body: commands });
+        yield rest.put(discord_js_1.Routes.applicationCommands(config.clientId), { body: commands });
         console.log('Successfully reloaded application (/) commands.');
     }
     catch (error) {

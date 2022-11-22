@@ -1,4 +1,4 @@
-import { Message, MessageAttachment } from "discord.js";
+import { Message, AttachmentBuilder } from "discord.js";
 
 const yoink = async (message: Message, firstArgument: string) => {
   let emoteCodes = message.content.match(/[a]{0,1}:([a-z_\-A-Z]*):([0-9]*)/);
@@ -9,15 +9,15 @@ const yoink = async (message: Message, firstArgument: string) => {
   }
   let response;
   if (message.content.includes("<a:") || firstArgument.includes("a:")) {
-    response = await message.guild?.emojis.create(
-      `https://cdn.discordapp.com/emojis/${emoteCode}.gif`,
-      emoteName
-    );
+    response = await message.guild?.emojis.create({
+        attachment: `https://cdn.discordapp.com/emojis/${emoteCode}.gif`,
+      name: emoteName
+    });
   } else {
-    response = await message.guild?.emojis.create(
-      `https://cdn.discordapp.com/emojis/${emoteCode}.webp`,
-      emoteName
-    );
+    response = await message.guild?.emojis.create({
+      attachment: `https://cdn.discordapp.com/emojis/${emoteCode}.webp`,
+      name: emoteName
+    });
   }
 
   if (response?.name) {

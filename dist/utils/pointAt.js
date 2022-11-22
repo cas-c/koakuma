@@ -35,7 +35,7 @@ const pointAt = (targetImage, targetChannel) => __awaiter(void 0, void 0, void 0
         .png()
         .toBuffer()
         .then((value) => {
-        const attachment = new discord_js_1.MessageAttachment(value, "intruder.png");
+        const attachment = new discord_js_1.AttachmentBuilder(value, { name: 'intruder.png' });
         targetChannel.send({ files: [attachment] });
     });
 });

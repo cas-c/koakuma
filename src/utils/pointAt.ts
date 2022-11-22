@@ -2,8 +2,8 @@ import {
   Guild,
   GuildTextBasedChannel,
   Message,
-  MessageAttachment,
   TextBasedChannel,
+  AttachmentBuilder,
 } from "discord.js";
 import fetch from "node-fetch";
 import sharp from "sharp";
@@ -35,7 +35,7 @@ const pointAt = async (
     .png()
     .toBuffer()
     .then((value) => {
-      const attachment = new MessageAttachment(value, "intruder.png");
+      const attachment = new AttachmentBuilder(value, { name: 'intruder.png' });
       targetChannel.send({ files: [attachment] });
     });
 };

@@ -19,10 +19,16 @@ const yoink = (message, firstArgument) => __awaiter(void 0, void 0, void 0, func
     }
     let response;
     if (message.content.includes("<a:") || firstArgument.includes("a:")) {
-        response = yield ((_a = message.guild) === null || _a === void 0 ? void 0 : _a.emojis.create(`https://cdn.discordapp.com/emojis/${emoteCode}.gif`, emoteName));
+        response = yield ((_a = message.guild) === null || _a === void 0 ? void 0 : _a.emojis.create({
+            attachment: `https://cdn.discordapp.com/emojis/${emoteCode}.gif`,
+            name: emoteName
+        }));
     }
     else {
-        response = yield ((_b = message.guild) === null || _b === void 0 ? void 0 : _b.emojis.create(`https://cdn.discordapp.com/emojis/${emoteCode}.webp`, emoteName));
+        response = yield ((_b = message.guild) === null || _b === void 0 ? void 0 : _b.emojis.create({
+            attachment: `https://cdn.discordapp.com/emojis/${emoteCode}.webp`,
+            name: emoteName
+        }));
     }
     if (response === null || response === void 0 ? void 0 : response.name) {
         return yield (yield message.reply("done~")).react(response);
