@@ -16,6 +16,10 @@ const commands = [
         name: 'check',
         description: 'Checks the camera for the most recent image.',
     },
+    {
+        name: 'ping',
+        description: 'Checks if the bot is responsive via / command'
+    }
 ];
 const rest = new discord_js_1.REST({ version: '10' }).setToken(config.token);
 (() => __awaiter(void 0, void 0, void 0, function* () {

@@ -1,20 +1,23 @@
-import { Message } from "discord.js";
+import { Message, TextChannel } from "discord.js";
+
 import addRole from "./commands/addRole";
 import check from "./commands/check";
 import emote from "./commands/emote";
 import ping from "./commands/ping";
+import point from "./commands/point";
+import renameChannel from './commands/renameChannel';
 import roleInfo from "./commands/roleInfo";
 import roles from "./commands/roles";
-import yoink from "./commands/yoink";
-import who from "./commands/who";
 import test from "./commands/test";
-import point from "./commands/point";
+import who from "./commands/who";
+import yoink from "./commands/yoink";
 
 const commandHandler = async (message: Message) => {
   const splitBySpaces = message.cleanContent.split(" ");
   const textCommand = splitBySpaces[0].split("!");
   const assumedMainCommand = textCommand[1].toLowerCase();
   const assumedFirstArgument = splitBySpaces[1];
+
   // mom?.send(`${assumedMainnCommand} from ${message.channel} in ${message.guild}`);
   // i love switch dont tell anyone theyll call me cringe and unfunctionalpilled
   switch (assumedMainCommand) {
@@ -65,7 +68,11 @@ const commandHandler = async (message: Message) => {
       } else {
         point(message, message.author.id);
       }
-
+      return;
+    case "rc":
+    case "renamechannel":
+      renameChannel(message, assumedFirstArgument);
+      return
     default:
       return;
   }

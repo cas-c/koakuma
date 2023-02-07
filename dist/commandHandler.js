@@ -16,12 +16,13 @@ const addRole_1 = __importDefault(require("./commands/addRole"));
 const check_1 = __importDefault(require("./commands/check"));
 const emote_1 = __importDefault(require("./commands/emote"));
 const ping_1 = __importDefault(require("./commands/ping"));
+const point_1 = __importDefault(require("./commands/point"));
+const renameChannel_1 = __importDefault(require("./commands/renameChannel"));
 const roleInfo_1 = __importDefault(require("./commands/roleInfo"));
 const roles_1 = __importDefault(require("./commands/roles"));
-const yoink_1 = __importDefault(require("./commands/yoink"));
-const who_1 = __importDefault(require("./commands/who"));
 const test_1 = __importDefault(require("./commands/test"));
-const point_1 = __importDefault(require("./commands/point"));
+const who_1 = __importDefault(require("./commands/who"));
+const yoink_1 = __importDefault(require("./commands/yoink"));
 const commandHandler = (message) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c;
     const splitBySpaces = message.cleanContent.split(" ");
@@ -78,6 +79,11 @@ const commandHandler = (message) => __awaiter(void 0, void 0, void 0, function* 
             else {
                 (0, point_1.default)(message, message.author.id);
             }
+            return;
+        case "rc":
+        case "renamechannel":
+            (0, renameChannel_1.default)(message, assumedFirstArgument);
+            return;
         default:
             return;
     }
