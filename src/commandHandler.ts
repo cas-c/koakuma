@@ -17,6 +17,8 @@ const commandHandler = async (message: Message) => {
   const textCommand = splitBySpaces[0].split("!");
   const assumedMainCommand = textCommand[1].toLowerCase();
   const assumedFirstArgument = splitBySpaces[1];
+  splitBySpaces.shift();
+  const fullStringArgument = splitBySpaces.join(' ');
 
   // mom?.send(`${assumedMainnCommand} from ${message.channel} in ${message.guild}`);
   // i love switch dont tell anyone theyll call me cringe and unfunctionalpilled
@@ -71,7 +73,7 @@ const commandHandler = async (message: Message) => {
       return;
     case "rc":
     case "renamechannel":
-      renameChannel(message, assumedFirstArgument);
+      renameChannel(message, fullStringArgument);
       return
     default:
       return;

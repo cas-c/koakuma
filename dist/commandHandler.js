@@ -29,6 +29,8 @@ const commandHandler = (message) => __awaiter(void 0, void 0, void 0, function* 
     const textCommand = splitBySpaces[0].split("!");
     const assumedMainCommand = textCommand[1].toLowerCase();
     const assumedFirstArgument = splitBySpaces[1];
+    splitBySpaces.shift();
+    const fullStringArgument = splitBySpaces.join(' ');
     // mom?.send(`${assumedMainnCommand} from ${message.channel} in ${message.guild}`);
     // i love switch dont tell anyone theyll call me cringe and unfunctionalpilled
     switch (assumedMainCommand) {
@@ -82,7 +84,7 @@ const commandHandler = (message) => __awaiter(void 0, void 0, void 0, function* 
             return;
         case "rc":
         case "renamechannel":
-            (0, renameChannel_1.default)(message, assumedFirstArgument);
+            (0, renameChannel_1.default)(message, fullStringArgument);
             return;
         default:
             return;

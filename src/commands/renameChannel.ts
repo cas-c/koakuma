@@ -2,7 +2,12 @@ import { ChannelType, Message } from "discord.js";
 
 const renameChannel = async (message: Message, newChannelName: string) => {
   if (message.channel.type !== ChannelType.GuildText) {
-    message.reply("This command isn't supported here!");
+    message.reply("sorry, this command isn't supported here!");
+    return;
+  }
+
+  if (!newChannelName) {
+    message.reply("sorry, i need something to rename it to!");
     return;
   }
 
@@ -13,7 +18,7 @@ const renameChannel = async (message: Message, newChannelName: string) => {
     return;
   } catch (e) {
     console.log("error in rename channel", e)
-    message.reply("something happened, not sure what :s ask cassie");
+    message.reply("sorry, something happened, not sure what :s ask cassie");
   }
   console.log("could not rename channel", message.channelId);
 };

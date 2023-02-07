@@ -12,7 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const renameChannel = (message, newChannelName) => __awaiter(void 0, void 0, void 0, function* () {
     if (message.channel.type !== discord_js_1.ChannelType.GuildText) {
-        message.reply("This command isn't supported here!");
+        message.reply("sorry, this command isn't supported here!");
+        return;
+    }
+    if (!newChannelName) {
+        message.reply("sorry, i need something to rename it to!");
         return;
     }
     try {
@@ -23,7 +27,7 @@ const renameChannel = (message, newChannelName) => __awaiter(void 0, void 0, voi
     }
     catch (e) {
         console.log("error in rename channel", e);
-        message.reply("something happened, not sure what :s ask cassie");
+        message.reply("sorry, something happened, not sure what :s ask cassie");
     }
     console.log("could not rename channel", message.channelId);
 });
