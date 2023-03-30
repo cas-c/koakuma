@@ -1,16 +1,19 @@
 const config = require("../../config.json");
 import { REST, Routes } from "discord.js"
+import { readdirSync } from "fs"
+import path from "path"
 
-const commands = [
-	{
-		name: 'check',
-		description: 'Checks the camera for the most recent image.',
-	},
-	{
-		name: 'ping',
-		description: 'Checks if the bot is responsive via / command'
-	}
-];
+
+const commands = [];
+// Grab all the command files from the commands directory you created earlier
+const commandsPath = path.join(__dirname, '../slashCommands');
+const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+// Grab the SlashCommandBuilder#toJSON() output of each command's data for deployment
+for (const file of commandFiles) {
+	const command = require(`../slashCommands/${file}`);
+	commands.push(command.data.toJSON());
+}
 
 const rest = new REST({ version: '10' }).setToken(config.token);
 

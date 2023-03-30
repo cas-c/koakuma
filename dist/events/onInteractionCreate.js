@@ -22,6 +22,24 @@ const onInteractionCreate = (interaction) => __awaiter(void 0, void 0, void 0, f
             files: attachment ? [attachment] : [],
             content: `${!hasNewImage && "No images found!"}`,
         });
+        return;
+    }
+    const command = interaction.client.commands.get(interaction.commandName);
+    if (!command) {
+        console.error(`No command matching ${interaction.commandName} was found.`);
+        return;
+    }
+    try {
+        yield command.execute(interaction);
+    }
+    catch (error) {
+        console.error(error);
+        if (interaction.replied || interaction.deferred) {
+            yield interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+        }
+        else {
+            yield interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        }
     }
 });
 exports.default = onInteractionCreate;

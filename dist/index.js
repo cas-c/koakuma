@@ -19,6 +19,8 @@ const onMessageReactionAdd_1 = __importDefault(require("./events/onMessageReacti
 const onMessageReactionRemove_1 = __importDefault(require("./events/onMessageReactionRemove"));
 const onVoiceStateUpdate_1 = __importDefault(require("./events/onVoiceStateUpdate"));
 const onInteractionCreate_1 = __importDefault(require("./events/onInteractionCreate"));
+const path_1 = __importDefault(require("path"));
+const fs_1 = require("fs");
 const config = require("../config.json");
 const Koakuma = new discord_js_1.Client({
     intents: [
@@ -32,6 +34,20 @@ const Koakuma = new discord_js_1.Client({
     ],
     partials: [discord_js_1.Partials.Message, discord_js_1.Partials.Channel, discord_js_1.Partials.Reaction, discord_js_1.Partials.User],
 });
+Koakuma.commands = new discord_js_1.Collection();
+const commandsPath = path_1.default.join(__dirname, 'slashCommands');
+const commandFiles = (0, fs_1.readdirSync)(commandsPath).filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+    const filePath = path_1.default.join(commandsPath, file);
+    const command = require(filePath);
+    // Set a new item in the Collection with the key as the command name and the value as the exported module
+    if ('data' in command && 'execute' in command) {
+        Koakuma.commands.set(command.data.name, command);
+    }
+    else {
+        console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+    }
+}
 let mom;
 let homeChannel;
 let roleChannel;
