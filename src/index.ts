@@ -1,2 +1,2 @@
-const config = require("../config.json");
-console.log("hello", config.applicationId);
+import discord from "./discord";
+console.log("hello", process.env["BOT_CLIENT_ID"], discord);

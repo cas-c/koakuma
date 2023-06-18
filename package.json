@@ -8,11 +8,16 @@
     "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
+    "dotenv": "^16.3.1",
     "eslint": "^8.43.0",
+    "nodemon": "^2.0.22",
     "prettier": "^2.8.8",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.0-dev.20230618"
   },
-  "scripts": {},
+  "scripts": {
+    "dev": "nodemon -r dotenv/config src/index.ts dotenv_config_path=.env.development"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cas-c/koakuma.git"
