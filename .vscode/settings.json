@@ -1,3 +1,5 @@
 {
-  "workbench.colorTheme": "Plastic Slate - deprioritised punctuation"
+  "workbench.colorTheme": "Plastic Slate - deprioritised punctuation",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }

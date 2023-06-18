@@ -3,47 +3,29 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/index.ts",
-  "dependencies": {
-    "@discordjs/rest": "1.6.0",
-    "@ffmpeg/core": "^0.10.0",
-    "@ffmpeg/ffmpeg": "^0.10.1",
-    "bufferutil": "^4.0.6",
-    "cheerio": "^1.0.0-rc.10",
-    "discord-api-types": "0.37.37",
-    "discord.js": "14.8.0",
-    "erlpack": "discord/erlpack",
-    "eslint": "^8.7.0",
-    "ioredis": "^5.0.6",
-    "node-fetch": "2",
-    "sharp": "^0.30.6",
-    "typescript": "^4.5.4",
-    "utf-8-validate": "^5.0.8",
-    "zlib-sync": "^0.1.7"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/node": "^17.0.40",
-    "@types/sharp": "^0.30.2",
-    "concurrently": "^7.0.0",
-    "nodemon": "^2.0.15",
-    "prettier": "2.5.1",
-    "prettier-eslint": "^8.2.2"
+    "@types/node": "^20.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.43.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.2.0-dev.20230618"
   },
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint . --ext .ts",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
-    "watch-node": "nodemon dist/index.js",
-    "watch-ts": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon -r dotenv/config src/index.ts dotenv_config_path=.env.development"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cassandra308/koakuma.git"
+    "url": "git+https://github.com/cas-c/koakuma.git"
   },
   "author": "cassie",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cassandra308/koakuma/issues"
+    "url": "https://github.com/cas-c/koakuma/issues"
   },
-  "homepage": "https://github.com/cassandra308/koakuma#readme"
+  "homepage": "https://github.com/cas-c/koakuma#readme"
 }
