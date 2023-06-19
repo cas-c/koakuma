@@ -2,7 +2,7 @@
   "include": ["src/**/*.ts", "src/**/*.json"],
   "compilerOptions": {
     "baseUrl": "./src",
-    "types": ["node"],
+    "types": ["@types/node"],
     "module": "CommonJS",
     "strict": true,
     "alwaysStrict": true,
