@@ -16,7 +16,8 @@
     "typescript": "next"
   },
   "scripts": {
-    "dev": "nodemon -r dotenv/config src/index.ts dotenv_config_path=.env.development"
+    "dev": "nodemon -r dotenv/config src/index.ts dotenv_config_path=.env.development",
+    "build": "tsc --build"
   },
   "repository": {
     "type": "git",
