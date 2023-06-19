@@ -1,8 +1,8 @@
 name: Deploy to Web Server
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
