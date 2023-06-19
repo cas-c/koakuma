@@ -1,7 +1,8 @@
 {
-  "include": ["src/**/*.ts","src/**/*.json"],
+  "include": ["src/**/*.ts", "src/**/*.json"],
   "compilerOptions": {
     "baseUrl": "./src",
+    "types": ["node"],
     "module": "CommonJS",
     "strict": true,
     "alwaysStrict": true,
@@ -29,7 +30,6 @@
     "removeComments": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    
+    "forceConsistentCasingInFileNames": true
   }
 }
