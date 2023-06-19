@@ -1,3 +1,3 @@
-const eeee = "making sure imports work";
+const eeee = "making sure imports work"
 
-export default eeee;
+export default eeee

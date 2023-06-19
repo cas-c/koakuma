@@ -5,7 +5,6 @@
   "main": "src/index.ts",
   "dependencies": {},
   "devDependencies": {
-    "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
     "dotenv": "^16.3.1",
@@ -17,7 +16,8 @@
   },
   "scripts": {
     "dev": "nodemon -r dotenv/config src/index.ts dotenv_config_path=.env.development",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "prettier": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "repository": {
     "type": "git",
