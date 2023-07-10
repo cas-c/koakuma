@@ -14,11 +14,13 @@
     "eslint": "^8.43.0",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8",
+    "prettier-plugin-organize-imports": "^3.2.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "next"
   },
   "scripts": {
     "dev": "nodemon -r dotenv/config src/index.ts dotenv_config_path=.env.development",
+    "register": "nodemon -r dotenv/config dist/register.js dotenv_config_path=.env.development",
     "build": "tsc --build",
     "prettier": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
